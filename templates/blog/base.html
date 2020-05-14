@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}
+        首页
+    {% endblock %}-Typeidea博客系统</title>
 </head>
 <body>
+<div>顶部分类
+    {% for cate in navs %}
+        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+    {% endfor %}
 
+</div>
+<hr>
+{% block main %}
+
+{% endblock %}
+<hr>
+<div>
+    侧边栏展示：
+    {% for side_bar in side_bars %}
+        <h4>
+            {{ side_bar.title }}
+        </h4>
+        {{ side_bar.content_html }}
+    {% endfor %}
+
+</div>
+<hr>
+<div>
+    底部分类
+    {% for cate in categories %}
+        <a href="{% url 'category-list' cate.id %}">{{ cate.name }}</a>
+    {% endfor %}
+
+</div>
 </body>
 </html>
