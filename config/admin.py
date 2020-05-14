@@ -20,7 +20,7 @@ class LinkAdmin(BaseOwnerAdmin):
 class SideBarAdmin(BaseOwnerAdmin):
     list_display = ('title', 'display_type', 'content', 'created_time')
 
-    fields = ('title', 'display_type', 'content')
+    fields = ('title', 'display_type', 'content',)
 
 # def save_model(self, request, obj, form, change):
 #     obj.owner = request.user

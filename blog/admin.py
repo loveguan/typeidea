@@ -5,6 +5,7 @@ from django.utils.html import format_html
 from .adminforms import PostAdminForm
 from typeidea.custom_site import custom_site
 from typeidea.BaseOwnerAdmin import BaseOwnerAdmin
+from django.contrib.admin.models import LogEntry
 
 
 # Register your models here.
@@ -130,3 +131,8 @@ class PostAdmin(BaseOwnerAdmin):
     # def save_model(self, request, obj, form, change):
     #     obj.owner = request.user
     #     return super(PostAdmin, self).save_model(request, obj, form, change)
+
+    # 在admin页面查看日志
+    @admin.register(LogEntry, site=custom_site)
+    class LogEntryAdmin(admin.ModelAdmin):
+        list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
