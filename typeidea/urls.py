@@ -19,6 +19,7 @@ from django.urls import re_path
 from .custom_site import custom_site
 from blog.views import post_detail, post_list
 from config.views import links
+from blog.views import MyView
 
 urlpatterns = [
     re_path(r'^$', post_list,name='index'),
@@ -28,5 +29,5 @@ urlpatterns = [
     re_path(r'^links/$', links,name='links'),
     path('super_admin/', admin.site.urls,name='super-admin'),
     path('admin/', custom_site.urls,name='admin'),
-
+    path('about/',MyView.as_view()),
 ]

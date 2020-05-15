@@ -39,3 +39,27 @@ def post_detail(request, post_id=None):
     }
     context.update(Category.get_nvas())
     return render(request, 'blog/detail.html', context=context)
+
+
+from django.views.generic import DetailView, ListView
+
+
+
+
+from django.views import View
+
+
+class MyView(View):
+    def get(self, request):
+        print(self)
+        return HttpResponse('result')
+
+class CommonViewMixin:
+    pass
+
+class IndexView(ListView):
+    queryset = Post.latest_posts()
+    paginate_by = 1
+    context_object_name = 'post_list'
+    template_name = 'blog/list.html'
+
