@@ -14,12 +14,9 @@
 
 </div>
 <hr>
-{% block main %}
-
-{% endblock %}
-<hr>
 <div>
     侧边栏展示：
+
     {% for side_bar in side_bars %}
         <h4>
             {{ side_bar.title }}
@@ -29,6 +26,11 @@
 
 </div>
 <hr>
+{% block main %}
+
+{% endblock %}
+<hr>
+
 <div>
     底部分类
     {% for cate in categories %}
