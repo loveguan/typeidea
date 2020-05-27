@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>评论结果页</title>
+    <style>
+        .result {
+            text-align: center;
+            width: 40%;
+            margin: auto;
+        }
+
+        .errorlist {
+            color: red;
+        }
+
+        ul li {
+            list-style-type: None;
+        }
+    </style>
 </head>
 <body>
-
+<div class="result">
+    {% if succeed %}
+        评论成功！！！
+        <a href="{{ target }}"></a>
+    {% else %}
+        <ul class="errorlist">
+            {% for field,message in form.errors.items %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <a href="javascript:window.history.back()">返回</a>
+    {% endif %}
+</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Comment
+import mistune
 
 
 class CommentForm(forms.ModelForm):
@@ -36,6 +37,7 @@ class CommentForm(forms.ModelForm):
         content = self.cleaned_data.get('content')
         if len(content) < 10:
             raise forms.ValidationError('内容长度怎么能这么短呢！！！')
+        content = mistune.markdown(content)
         return content
 
     class Meta:

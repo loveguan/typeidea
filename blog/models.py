@@ -60,6 +60,9 @@ class Tag(models.Model):
         return self.name
 
 
+import mistune
+
+
 class Post(models.Model):
     STATUS_NORMAL = 1
     STATUA_DELETE = 0
@@ -72,6 +75,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name='标题')
     desc = models.CharField(max_length=1024, blank=True, verbose_name='摘要')
     content = models.TextField(verbose_name='正文', help_text="正文必须为MarkDown格式")
+    content_html = models.TextField(verbose_name='正文html代码', blank=True, editable=False)
     status = models.PositiveIntegerField(default=STATUS_NORMAL,
                                          choices=STATUS_ITEMS, verbose_name='状态')
     pv = models.PositiveIntegerField(default=1)
@@ -120,3 +124,7 @@ class Post(models.Model):
     @classmethod
     def hot_posts(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content)
+        super().save(*args, **kwargs)

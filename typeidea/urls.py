@@ -22,6 +22,9 @@ from config.views import links
 from blog.views import MyView
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
 from config.views import LinkListView
+from comment.views import CommentView
+from django.contrib.sitemaps import views as sitemap_views
+from blog.rss import LatestPostFeed
 
 urlpatterns = [
     # re_path(r'^$', post_list,name='index'),
@@ -36,7 +39,9 @@ urlpatterns = [
     re_path(r'^search/$', SearchView.as_view(), name='search'),
     re_path(r'^author/(?P<owner_id>\d+)/$', AuthorView.as_view(), name='author'),
     re_path(r'^links/$', LinkListView.as_view(), name='links'),
+    re_path(r'^comment/$', CommentView.as_view(), name='comment'),
     path('super_admin/', admin.site.urls, name='super-admin'),
     path('admin/', custom_site.urls, name='admin'),
     path('about/', MyView.as_view()),
+    re_path(r'^rss|feed', LatestPostFeed(), name='rss')
 ]
