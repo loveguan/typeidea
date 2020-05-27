@@ -25,7 +25,7 @@ from config.views import LinkListView
 from comment.views import CommentView
 from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
-
+from blog.sitemap import PostSitemap
 urlpatterns = [
     # re_path(r'^$', post_list,name='index'),
     re_path(r'^$', IndexView.as_view(), name='index'),
@@ -43,5 +43,8 @@ urlpatterns = [
     path('super_admin/', admin.site.urls, name='super-admin'),
     path('admin/', custom_site.urls, name='admin'),
     path('about/', MyView.as_view()),
-    re_path(r'^rss|feed', LatestPostFeed(), name='rss')
+    re_path(r'^rss|feed', LatestPostFeed(), name='rss'),
+    re_path(r'^sitemap\.xml$',sitemap_views.sitemap, {'sitemaps':{
+        'posts':PostSitemap
+    }})
 ]

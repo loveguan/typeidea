@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.functional import cached_property
 
 
 # Create your models here.
@@ -128,3 +129,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.content_html = mistune.markdown(self.content)
         super().save(*args, **kwargs)
+    # sitemap use
+    @cached_property
+    def tags(self):
+        return ','.join(self.tag.values_list('name', flat=True))
